@@ -1,0 +1,8 @@
+# Data-shape config. With roles.yaml this is the whole template: swap both (CRM_CONFIG_DIR) to reuse the app.
+# Paths are relative to backend/.
+db: data/demo.db
+docs_dir: data/docs
+memory_file: data/memory.json
+vectorstore: vectorstore
+user_table: {name: users, id: id, display: name, role: role}  # who can ask, and which role they hold
+owner_columns: {tickets: assigned_to}                          # table -> column holding the owning user id (for row_scope: own)

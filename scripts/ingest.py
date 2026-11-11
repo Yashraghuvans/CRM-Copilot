@@ -1,12 +1,15 @@
 """Builds the Chroma index from backend/data/docs. Run once: python scripts/ingest.py
 Doc tag = filename prefix (manual_x.txt -> 'manual'). visible_to comes from roles.yaml doc_tags."""
+import os
 from pathlib import Path
 
 import chromadb
 import yaml
 
 B = Path(__file__).parent.parent / "backend"
-ROLES = yaml.safe_load((B / "roles.yaml").read_text())
+CFG = Path(os.environ.get("CRM_CONFIG_DIR", B))
+ROLES = yaml.safe_load((CFG / "roles.yaml").read_text())
+SCHEMA = yaml.safe_load((CFG / "schema.yaml").read_text())
 
 
 def chunks(text, size=500):
@@ -20,13 +23,13 @@ def chunks(text, size=500):
     return out + [cur] if cur else out
 
 
-client = chromadb.PersistentClient(str(B / "vectorstore"))
+client = chromadb.PersistentClient(str(B / SCHEMA["vectorstore"]))
 if "docs" in [c.name for c in client.list_collections()]:
     client.delete_collection("docs")  # rebuild from scratch
 col = client.create_collection("docs")
 
 ids, docs, metas = [], [], []
-for f in sorted((B / "data" / "docs").glob("*.txt")):
+for f in sorted((B / SCHEMA["docs_dir"]).glob("*.txt")):
     tag = f.stem.split("_")[0]
     roles = [r for r, cfg in ROLES.items() if tag in cfg["doc_tags"]]
     # chroma metadata can't hold lists: keep visible_to readable + one bool per role to filter on

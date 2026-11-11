@@ -1,14 +1,12 @@
 import sqlite3
-from pathlib import Path
 
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 
 import llm
 from assembler import assemble
-from router import ROLES, route
+from router import DB, ROLES, SCHEMA, route
 
-DB = Path(__file__).parent / "data" / "demo.db"  # ponytail: table/column names move to schema.yaml in phase 8
 app = FastAPI()
 
 
@@ -19,7 +17,8 @@ class Ask(BaseModel):
 
 
 def _users():
-    return sqlite3.connect(DB).execute("SELECT id, name, role FROM users").fetchall()
+    u = SCHEMA["user_table"]  # identifiers come from trusted config, not request input
+    return sqlite3.connect(DB).execute(f"SELECT {u['id']}, {u['display']}, {u['role']} FROM {u['name']}").fetchall()
 
 
 @app.get("/roles")
