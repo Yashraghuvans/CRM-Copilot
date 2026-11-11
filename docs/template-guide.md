@@ -58,7 +58,7 @@ Rules:
 - Role names are free-form, but each must match the values in your `user_table` role column exactly.
 - List every column a role may read. Anything not listed is invisible to that role.
 - A role with an empty `doc_tags: []` skips the vector store; `memory: none` skips memory.
-- Row 0 of each listed table's columns should be its id column. Source labels like `sql:cases#12` use the first column.
+- List the id column first for each table; source labels like `sql:cases#12` use the first column.
 
 ## 4. Add your data
 
