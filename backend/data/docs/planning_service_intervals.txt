@@ -1,0 +1,7 @@
+Preventive maintenance intervals
+
+Routers and switches are serviced every 12 months. Firewalls every 6 months, including firmware review.
+
+UPS units are serviced every 12 months, with battery replacement every 36 months or on a failed self-test.
+
+Equipment with no service in the last 12 months should be scheduled in the next planning cycle, grouped by site to reduce travel.
