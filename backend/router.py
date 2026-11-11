@@ -9,9 +9,9 @@ HERE = Path(__file__).parent
 ROLES = yaml.safe_load((HERE / "roles.yaml").read_text())
 # column concat searched per table
 TABLES = {
-    "tickets": "title || ' ' || body || ' ' || status",
-    "users": "name || ' ' || email",
-    "equipment": "name || ' ' || status || ' ' || location",
+    "tickets": "status || ' ' || notes",
+    "users": "name || ' ' || role",
+    "equipment": "name || ' ' || location",
 }
 
 
