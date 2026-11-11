@@ -1,1 +1,3 @@
 .env
+backend/vectorstore/
+__pycache__/

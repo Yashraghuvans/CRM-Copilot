@@ -1,0 +1,5 @@
+Z5 firewall: firmware update
+
+Back up the running configuration before updating. Upload the signed firmware image from the admin console under System > Firmware, and apply it outside business hours.
+
+The unit reboots twice. Confirm VPN tunnels and WAN failover after the second boot, and keep the old image for rollback.

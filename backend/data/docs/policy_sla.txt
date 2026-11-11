@@ -1,0 +1,7 @@
+Service level policy
+
+Priority-1 tickets (customer fully offline) require a first response within 1 hour and an on-site visit within 4 hours.
+
+Priority-2 tickets (degraded service) require a first response within 4 hours and resolution within 2 business days.
+
+Tickets pending on the customer for more than 5 days may be closed by a supervisor with a note.
