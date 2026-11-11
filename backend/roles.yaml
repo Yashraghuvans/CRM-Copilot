@@ -1,3 +1,27 @@
-admin: [tickets, users, equipment, docs]
-support: [tickets, docs]
-field_tech: [equipment, docs]
+# Single source of truth for permissions.
+# sql: table -> columns the role may read. row_scope: own = only rows owned by the asking user.
+# doc_tags: doc tags the role may retrieve. memory: own | team | none.
+technician:
+  sql:
+    tickets: [id, assigned_to, status, equipment_id, notes]
+    equipment: [id, name, location, last_service]
+  row_scope: own
+  doc_tags: [manual]
+  memory: own
+
+supervisor:
+  sql:
+    users: [id, name, role]
+    tickets: [id, assigned_to, status, equipment_id, notes]
+    equipment: [id, name, location, last_service]
+  row_scope: all
+  doc_tags: [manual, policy]
+  memory: team
+
+planner:
+  sql:
+    tickets: [id, status, equipment_id]
+    equipment: [id, name, location, last_service]
+  row_scope: all
+  doc_tags: [planning, policy]
+  memory: none
