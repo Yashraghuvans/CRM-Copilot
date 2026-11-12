@@ -1,0 +1,7 @@
+X200 router: factory reset procedure
+
+Hold the recessed reset button for 10 seconds until the power LED blinks amber. Release and wait two minutes for the unit to reboot.
+
+After reset, log in at 192.168.1.1 with the default credentials printed on the base label and reconfigure the WAN settings (PPPoE or DHCP, per the customer's ISP sheet).
+
+If the router reboots randomly after reset, suspect the power supply. Swap the adapter before replacing the unit.

@@ -1,0 +1,5 @@
+UPS-1500: battery replacement
+
+Run the self-test from the front panel before replacing anything. A failed self-test with the red battery icon means the battery pack is at end of life (typically 3 to 4 years).
+
+Power down protected equipment, switch the UPS off, and unplug it. Slide off the front cover, disconnect the battery connector, and swap the pack. Record the install date on the sticker.

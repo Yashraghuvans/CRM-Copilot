@@ -13,8 +13,8 @@ CREATE TABLE tickets(id INTEGER PRIMARY KEY, assigned_to INTEGER REFERENCES user
   status TEXT NOT NULL, equipment_id INTEGER REFERENCES equipment(id), notes TEXT NOT NULL);
 """)
 db.executemany("INSERT INTO users VALUES(?,?,?)", [
-    (1, "Alice Admin", "admin"), (2, "Sam Support", "support"), (3, "Sara Support", "support"),
-    (4, "Tom Tech", "field_tech"), (5, "Tina Tech", "field_tech"), (6, "Raj Tech", "field_tech")])
+    (1, "Priya Planner", "planner"), (2, "Sam Supervisor", "supervisor"), (3, "Sara Supervisor", "supervisor"),
+    (4, "Tom Tech", "technician"), (5, "Tina Tech", "technician"), (6, "Raj Tech", "technician")])
 db.executemany("INSERT INTO equipment VALUES(?,?,?,?)", [
     (1, "X200 router", "Acme HQ", "2025-08-14"), (2, "Y10 switch", "Build Co warehouse", "2025-10-02"),
     (3, "Z5 firewall", "Acme HQ", "2025-03-21"), (4, "AP-300 access point", "Globex lobby", "2025-09-30"),
