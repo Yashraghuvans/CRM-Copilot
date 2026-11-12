@@ -11,6 +11,38 @@ The demo is a field-service setup (technicians, supervisors, planners). The same
 - **Grounded and cited.** The model answers only from the retrieved context, and every response lists its sources.
 - **Config-driven.** Roles, tables, paths and the user table live in YAML. No role or table names are hardcoded.
 
+## How a prompt flows
+
+```mermaid
+sequenceDiagram
+    actor U as User
+    participant UI as Streamlit UI
+    participant API as FastAPI /ask
+    participant R as router.py
+    participant S as SQL, Chroma, memory
+    participant A as assembler.py
+    participant L as llm.py
+    participant C as Claude
+
+    U->>UI: pick role + user, type question
+    UI->>API: POST /ask {role, user_id, query}
+    API->>API: reject unknown role (400) or user without that role (403)
+    API->>R: route(query, role, user_id)
+    R->>S: query only what roles.yaml allows for this role
+    Note over R,S: SQL: allowed tables/columns, own rows if row_scope=own<br/>Docs: filter role_X = true<br/>Memory: own, team or none
+    S-->>R: scored hits
+    R-->>A: hits
+    A->>A: drop duplicates, rank by score, trim to token budget
+    A-->>L: context + sources
+    L->>C: system prompt (CRM-Copilot identity, role, context) + user question
+    C-->>L: answer grounded in the context
+    L-->>API: answer
+    API-->>UI: {answer, sources}
+    UI-->>U: reply + sources panel
+```
+
+The model never sees data outside the asking user's permissions: filtering happens at the `router` step, before the prompt is built. More detail in [Architecture](docs/architecture.md).
+
 ## Quick start
 
 Requires Python 3.10+ and an [Anthropic API key](https://console.anthropic.com/).
